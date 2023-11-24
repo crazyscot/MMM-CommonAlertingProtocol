@@ -46,7 +46,8 @@
                         {{ escapeTitle(item.title, item.url, config.dangerouslyDisableAutoEscaping, config.showTitleAsUrl) }}
                         {% endif %}
                 </span>
-                {% if config.showAreaDescription %}<span class="cap-areas">{{item.areas}}</span>{% endif %}
+                {% if config.showOnset %}<span class="cap-onset">{{ item.onset }}</span>{% endif %}
+                {% if config.showAreaDescription %}<span class="cap-areas light"> {{item.areas}}</span>{% endif %}
             </li>
         {% endfor %}
     </ul>

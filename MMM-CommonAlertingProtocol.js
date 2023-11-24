@@ -34,6 +34,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		showAreaDescription: true,
 		showIcon: true,
 		showAlertTitle: true,
+		showOnset: true,
 		useCache: false, // Intended for development only
 
 		// TODO location filter for geo-coded alerts
@@ -226,6 +227,10 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 				});
 			});
 			item.areas = areas.join(", ");
+			let onset = item.detail[0]?.onset;
+			if (onset) {
+				item.onset = moment(new Date(onset)).calendar();
+			}
 
 		});
 
