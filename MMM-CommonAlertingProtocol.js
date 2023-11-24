@@ -41,6 +41,8 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 			showOnset: true,
 		},
 		cacheFeed: false, // Intended for development only
+		lat: null, // Geo-filter location
+		lon: null, // Geo-filter location
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
