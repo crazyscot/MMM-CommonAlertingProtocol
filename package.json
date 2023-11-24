@@ -5,6 +5,10 @@
   "main": "MMM-CommonAlertingProtocol.js",
   "author": "Ross Younger",
   "license": "MIT",
+  "dependencies": {
+    "node-fetch-cache": "^3.1.3",
+    "xml2js": "^0.6.2"
+  },
   "devDependencies": {
     "grunt": "latest",
     "grunt-eslint": "latest",
