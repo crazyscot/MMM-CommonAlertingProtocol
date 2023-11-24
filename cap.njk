@@ -30,24 +30,24 @@
     <ul class="cap-list">
         {% for item in items %}
             <li>
-                {% if (config.showSourceTitle and item.sourceTitle) or config.showPublishDate %}
+                {% if (item.config.showSourceTitle and item.sourceTitle) or item.config.showPublishDate %}
                 <span class="cap-source light small dimmed">
-                    {% if item.sourceTitle and config.showSourceTitle %}
-                        {{ item.sourceTitle }}{% if config.showPublishDate %}, {% else %}:{% endif %}
+                    {% if item.sourceTitle and item.config.showSourceTitle %}
+                        {{ item.sourceTitle }}{% if item.config.showPublishDate %}, {% else %}:{% endif %}
                     {% endif %}
-                    {% if config.showPublishDate %}{{ item.publishDate }}:{% endif %}
+                    {% if item.config.showPublishDate %}{{ item.publishDate }}:{% endif %}
                 </span>
                 {% endif %}
-                <span class="cap-severity-{{ item.severity }} cap-title bright medium light{{ ' no-wrap' if not config.wrapTitle }}">
-                        {% if config.showIcon %}
+                <span class="cap-severity-{{ item.severity }} cap-title bright medium light{{ ' no-wrap' if not item.config.wrapTitle }}">
+                        {% if item.config.showIcon %}
                         <span class="wi weathericon wi-{{ item.iconClass }} cap-severity-{{ item.severity }}"></span>
                         {% endif %}
-                        {% if config.showAlertTitle %}
-                        {{ escapeTitle(item.title, item.url, config.dangerouslyDisableAutoEscaping, config.showTitleAsUrl) }}
+                        {% if item.config.showAlertTitle %}
+                        {{ escapeTitle(item.title, item.url, item.config.dangerouslyDisableAutoEscaping, item.config.showTitleAsUrl) }}
                         {% endif %}
                 </span>
-                {% if config.showOnset %}<span class="cap-onset">{{ item.onset }}</span>{% endif %}
-                {% if config.showAreaDescription %}<span class="cap-areas light"> {{item.areas}}</span>{% endif %}
+                {% if item.config.showOnset %}<span class="cap-onset">{{ item.onset }}</span>{% endif %}
+                {% if item.config.showAreaDescription %}<span class="cap-areas light"> {{item.areas}}</span>{% endif %}
             </li>
         {% endfor %}
     </ul>

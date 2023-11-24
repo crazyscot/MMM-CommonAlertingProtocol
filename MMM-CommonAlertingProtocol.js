@@ -22,6 +22,9 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 			{
 				title: "MetService",
 				url: "https://alerts.metservice.com/cap/rss",
+				config: {
+					// You can override settings in commonConfig on a per-feed basis.
+				},
 			}
 		],
 		maxDisplayItems: 0,
@@ -29,12 +32,14 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		removeStartTags: "",
 		removeEndTags: "",
 		broadcastAlertUpdates: true,
-		showSourceTitle: true,
-		showPublishDate: true,
-		showAreaDescription: true,
-		showIcon: true,
-		showAlertTitle: true,
-		showOnset: true,
+		commonConfig: {
+			showSourceTitle: true,
+			showPublishDate: true,
+			showAreaDescription: true,
+			showIcon: true,
+			showAlertTitle: true,
+			showOnset: true,
+		},
 		cacheFeed: false, // Intended for development only
 	},
 
@@ -129,6 +134,22 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 	},
 
 	/**
+	 * Generate a merged config block for a feed
+	 * @note If multiple feeds are configured with the same URL, the results may be surprising.
+	 * The helper assumes feed URLs are unique.
+	 */
+	configForFeed: function (url) {
+		for (let iter in this.config.feeds) {
+			const feed = this.config.feeds[iter];
+			if (feed.url === url) {
+				return { ...this.defaults.commonConfig, ... this.config.commonConfig, ...feed.config };
+			}
+		}
+		console.log(`Missing feed config?! ${url}`);
+		return { ...this.defaults.commonConfig, ... this.config.commonConfig };
+	},
+
+	/**
 	 * Generate an ordered list of items for this configured module.
 	 * @param {object} feeds An object with feeds returned by the node helper.
 	 */
@@ -136,9 +157,11 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		let newsItems = [];
 		for (let feed in feeds) {
 			const feedItems = feeds[feed];
+			const thisFeedConfig = this.configForFeed(feed);
 			if (this.subscribedToFeed(feed)) {
 				for (let item of feedItems) {
 					item.sourceTitle = this.titleForFeed(feed);
+					item.config = thisFeedConfig;
 					if (!(this.config.ignoreOldItems && Date.now() - new Date(item.pubdate) > this.config.ignoreOlderThan)) {
 						newsItems.push(item);
 					}
@@ -218,7 +241,6 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 			if (onset) {
 				item.onset = moment(new Date(onset)).calendar();
 			}
-
 		});
 
 		// get updated news items and broadcast them
