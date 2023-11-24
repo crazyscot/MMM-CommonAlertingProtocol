@@ -35,7 +35,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		showIcon: true,
 		showAlertTitle: true,
 		showOnset: true,
-		useCache: false, // Intended for development only
+		cacheFeed: false, // Intended for development only
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror

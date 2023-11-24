@@ -50,7 +50,7 @@ module.exports = NodeHelper.create({
 		const reloadInterval = feed.reloadInterval || config.reloadInterval || 5 * 60 * 1000;
 		let useCorsProxy = feed.useCorsProxy;
 		if (useCorsProxy === undefined) useCorsProxy = true;
-		if (config.useCache) this.ensureFetchCache();
+		if (config.cacheFeed) this.ensureFetchCache();
 
 		try {
 			new URL(url);
