@@ -2,7 +2,7 @@
 
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/).
 
-Todo: Insert description here!
+Shows public alerts sent via the Common Alerting Protocol
 
 ## Using the module
 

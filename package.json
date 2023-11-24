@@ -1,7 +1,7 @@
 {
   "name": "MMM-CommonAlertingProtocol",
   "version": "1.0.0",
-  "description": "Todo: Insert description here!",
+  "description": "Shows public alerts sent via the Common Alerting Protocol",
   "main": "MMM-CommonAlertingProtocol.js",
   "author": "Ross Younger",
   "license": "MIT",
