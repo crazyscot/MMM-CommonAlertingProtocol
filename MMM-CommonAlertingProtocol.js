@@ -204,6 +204,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 
 			// process publish dates
 			item.publishDate = moment(new Date(item.pubdate)).fromNow();
+			item.severity = item.detail[0].severity; // Minor, Moderate, Severe
 
 		});
 
