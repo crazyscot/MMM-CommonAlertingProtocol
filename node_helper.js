@@ -122,7 +122,6 @@ module.exports = NodeHelper.create({
 				}
 			}
 		}
-		Log.log("asyncs " + asyncs.length);
 		Promise.all(asyncs).finally(() => {
 			this.broadcastFeeds();
 		});
