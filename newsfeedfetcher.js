@@ -12,6 +12,8 @@ const { htmlToText } = require("html-to-text");
 const Log = require("logger");
 const NodeHelper = require("node_helper");
 
+const ego = "CAP Newsfeed-Fetcher"
+
 /**
  * Responsible for requesting an update on the set interval and broadcasting the data.
  * @param {string} url URL of the news feed.
@@ -93,10 +95,10 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 				const ttlms = Math.min(minutes * 60 * 1000, 86400000);
 				if (ttlms > reloadIntervalMS) {
 					reloadIntervalMS = ttlms;
-					Log.info(`Newsfeed-Fetcher: reloadInterval set to ttl=${reloadIntervalMS} for url ${url}`);
+					Log.info(`${ego}: reloadInterval set to ttl=${reloadIntervalMS} for url ${url}`);
 				}
 			} catch (error) {
-				Log.warn(`Newsfeed-Fetcher: feed ttl is no valid integer=${minutes} for url ${url}`);
+				Log.warn(`${ego}: feed ttl is no valid integer=${minutes} for url ${url}`);
 			}
 		});
 
@@ -158,10 +160,10 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 	 */
 	this.broadcastItems = function () {
 		if (items.length <= 0) {
-			Log.info("Newsfeed-Fetcher: No items to broadcast yet.");
+			Log.info(`${ego}: No items to broadcast yet.`);
 			return;
 		}
-		Log.info(`Newsfeed-Fetcher: Broadcasting ${items.length} items.`);
+		Log.info(`${ego}: Broadcasting ${items.length} items.`);
 		itemsReceivedCallback(this);
 	};
 
