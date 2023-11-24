@@ -50,11 +50,6 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		this.error = null;
 
 		this.registerFeeds();
-
-		// Schedule update timer.
-		setInterval(function() {
-			self.updateDom();
-		}, this.updateInterval);
 	},
 
 	getUrlPrefix: function (item) {
