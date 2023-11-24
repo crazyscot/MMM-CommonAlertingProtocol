@@ -39,8 +39,12 @@
                 </span>
                 {% endif %}
                 <span class="cap-severity-{{ item.severity }} cap-title bright medium light{{ ' no-wrap' if not config.wrapTitle }}">
+                        {% if config.showIcon %}
                         <span class="wi weathericon wi-{{ item.iconClass }} cap-severity-{{ item.severity }}"></span>
+                        {% endif %}
+                        {% if config.showHeadlineText %}
                         {{ escapeTitle(item.title, item.url, config.dangerouslyDisableAutoEscaping, config.showTitleAsUrl) }}
+                        {% endif %}
                 </span>
                 {% if config.showAreaDescription %}<span class="cap-areas">{{item.areas}}</span>{% endif %}
             </li>
