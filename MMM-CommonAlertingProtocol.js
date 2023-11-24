@@ -70,9 +70,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 	},
 
 	getStyles: function () {
-		return [
-			"MMM-CommonAlertingProtocol.css",
-		];
+		return ["font-awesome.css", "weather-icons.css", "MMM-CommonAlertingProtocol.css"];
 	},
 
 	// Load translations files
@@ -122,6 +120,17 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		} else if (notification === "FEED_ERROR") {
 			this.error = this.translate(payload.error_type);
 			this.updateDom(this.config.animationSpeed);
+		}
+	},
+
+	/** Map MetService event types into WI icons */
+	convertEventType: function (event) {
+		let s = String(event);
+		switch (s) {
+			case "wind":
+				return "strong-wind";
+			default:
+				return s;
 		}
 	},
 
@@ -202,9 +211,10 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 				}
 			}
 
-			// process publish dates
+			// process data we want to directly report
 			item.publishDate = moment(new Date(item.pubdate)).fromNow();
-			item.severity = item.detail[0].severity; // Minor, Moderate, Severe
+			item.severity = item.detail[0]?.severity; // Minor, Moderate, Severe
+			item.iconClass = this.convertEventType(item.detail[0]?.event);
 
 		});
 

@@ -6,7 +6,15 @@
  * MIT Licensed.
  *
  */
-  
+
+.weather .weathericon,
+.weather .fa-home {
+  font-size: 75%;
+  line-height: 65px;
+  display: inline-block;
+  transform: translate(0, -3px);
+}
+
 .cap-list {
   list-style: none;
 }
