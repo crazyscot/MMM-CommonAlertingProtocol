@@ -42,7 +42,7 @@
                         {% if config.showIcon %}
                         <span class="wi weathericon wi-{{ item.iconClass }} cap-severity-{{ item.severity }}"></span>
                         {% endif %}
-                        {% if config.showHeadlineText %}
+                        {% if config.showAlertTitle %}
                         {{ escapeTitle(item.title, item.url, config.dangerouslyDisableAutoEscaping, config.showTitleAsUrl) }}
                         {% endif %}
                 </span>

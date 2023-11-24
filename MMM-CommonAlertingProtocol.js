@@ -33,7 +33,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		showPublishDate: true,
 		showAreaDescription: true,
 		showIcon: true,
-		showHeadlineText: false,
+		showAlertTitle: true,
 		useCache: false, // Intended for development only
 
 		// TODO location filter for geo-coded alerts
