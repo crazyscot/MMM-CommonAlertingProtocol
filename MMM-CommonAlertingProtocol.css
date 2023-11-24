@@ -24,14 +24,14 @@
   margin-bottom: 0.5em;
 }
 
-.cap-severity-minor {
-    color: yellow;
+.cap-severity-Minor {
+    color: yellow !important;
 }
 
-.cap-severity-moderate {
-    color: orange;
+.cap-severity-Moderate {
+    color: orange !important;
 }
 
-.cap-severity-extreme {
-    color: red;
+.cap-severity-Extreme {
+    color: red !important;
 }
