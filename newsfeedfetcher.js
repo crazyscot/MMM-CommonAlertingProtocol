@@ -52,6 +52,8 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 			let description = item.description || item.summary || item.content || "";
 			const pubdate = item.pubdate || item.published || item.updated || item["dc:date"];
 			const url = item.url || item.link || "";
+			const guid = item.guid || "";
+			const category = item.category || "";
 
 			if (title && pubdate) {
 				const regex = /(<([^>]+)>)/gi;
@@ -64,6 +66,8 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 					description: description,
 					pubdate: pubdate,
 					url: url,
+					guid: guid,
+					category: category,
 					useCorsProxy: useCorsProxy
 				});
 			} else if (logFeedWarnings) {
