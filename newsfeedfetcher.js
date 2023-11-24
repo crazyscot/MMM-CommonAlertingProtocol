@@ -11,6 +11,7 @@ const iconv = require("iconv-lite");
 const { htmlToText } = require("html-to-text");
 const Log = require("logger");
 const NodeHelper = require("node_helper");
+const minipass_pipeline = require('minipass-pipeline');
 
 const ego = "CAP Newsfeed-Fetcher"
 
@@ -21,15 +22,17 @@ const ego = "CAP Newsfeed-Fetcher"
  * @param {string} encoding Encoding of the feed.
  * @param {boolean} logFeedWarnings If true log warnings when there is an error parsing a news article.
  * @param {boolean} useCorsProxy If true cors proxy is used for article url's.
+ * @param {function} fetchCache If given, used in place of fetch().
  * @class
  */
-const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings, useCorsProxy) {
+const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings, useCorsProxy, fetchCache = null) {
 	let reloadTimer = null;
 	let items = [];
 	let reloadIntervalMS = reloadInterval;
 
 	let fetchFailedCallback = function () {};
-	let itemsReceivedCallback = function () {};
+	let itemsReceivedCallback = function () { };
+	let fetchCacheFunction = fetchCache;
 
 	if (reloadIntervalMS < 1000) {
 		reloadIntervalMS = 1000;
@@ -113,11 +116,12 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 			Pragma: "no-cache"
 		};
 
-		fetch(url, { headers: headers })
+		let fetchFunction = fetchCacheFunction || fetch;
+		fetchFunction(url, { headers: headers })
 			.then(NodeHelper.checkFetchStatus)
 			.then((response) => {
 				let nodeStream;
-				if (response.body instanceof stream.Readable) {
+				if (response.body instanceof stream.Readable || response.body instanceof minipass_pipeline) {
 					nodeStream = response.body;
 				} else {
 					nodeStream = stream.Readable.fromWeb(response.body);
