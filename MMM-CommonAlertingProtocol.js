@@ -36,10 +36,6 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		showAlertTitle: true,
 		showOnset: true,
 		useCache: false, // Intended for development only
-
-		// TODO location filter for geo-coded alerts
-		// TODO high prority only
-		// TODO other filter rules?
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -119,7 +115,6 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
             this.loaded = true;
             this.error = null;
 
-			// TODO load subordinate data pages - in node_helper!
 			this.updateDom(100);
 		} else if (notification === "FEED_ERROR") {
 			this.error = this.translate(payload.error_type);
@@ -143,9 +138,6 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 	 * @param {object} feeds An object with feeds returned by the node helper.
 	 */
 	generateAlerts: function (feeds) {
-		// TODO filter items by lat/lon
-		// TODO filter by priority, category
-		// TODO is there an expiry date? if not, parser on finish should also broadcastItems().
 		let newsItems = [];
 		for (let feed in feeds) {
 			const feedItems = feeds[feed];
@@ -279,3 +271,4 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		return false;
 	},
 });
+
