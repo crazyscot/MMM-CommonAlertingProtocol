@@ -42,6 +42,7 @@
                         <span class="wi weathericon wi-{{ item.iconClass }} cap-severity-{{ item.severity }}"></span>
                         {{ escapeTitle(item.title, item.url, config.dangerouslyDisableAutoEscaping, config.showTitleAsUrl) }}
                 </span>
+                {% if config.showAreaDescription %}<span class="cap-areas">{{item.areas}}</span>{% endif %}
             </li>
         {% endfor %}
     </ul>
