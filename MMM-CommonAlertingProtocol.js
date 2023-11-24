@@ -29,6 +29,8 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		removeStartTags: "",
 		removeEndTags: "",
 		broadcastAlertUpdates: true,
+		showSourceTitle: true,
+		showPublishDate: true,
 		useCache: false, // Intended for development only
 
 		// TODO location filter for geo-coded alerts
@@ -64,7 +66,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 	},
 
 	getScripts: function() {
-		return [];
+		return ["moment.js"];
 	},
 
 	getStyles: function () {
@@ -75,10 +77,8 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 
 	// Load translations files
 	getTranslations: function() {
-		//FIXME: This can be load a one file javascript definition
 		return {
 			en: "translations/en.json",
-			es: "translations/es.json"
 		};
 	},
 
@@ -89,8 +89,8 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 	getTemplateData: function () {
 		return {
 			config: this.config,
-			count: this.alertItems.length
-			// moment(new Date(item.pubdate)).fromNow() ? see newsfeed.js
+			items: this.alertItems,
+			loaded: this.loaded,
 		};
 	},
 
@@ -201,6 +201,10 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 					}
 				}
 			}
+
+			// process publish dates
+			item.publishDate = moment(new Date(item.pubdate)).fromNow();
+
 		});
 
 		// get updated news items and broadcast them

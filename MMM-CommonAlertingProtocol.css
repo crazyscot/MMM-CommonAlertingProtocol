@@ -5,6 +5,13 @@
  * Ross Younger
  * MIT Licensed.
  *
- * Custom here your css module
- *
  */
+  
+.cap-list {
+  list-style: none;
+}
+
+.cap-list li {
+  text-align: justify;
+  margin-bottom: 0.5em;
+}
