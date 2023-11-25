@@ -130,6 +130,8 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		switch (s) {
 			case "wind":
 				return "strong-wind";
+			case "localStorm":
+				return "thunderstorm";
 			default:
 				return s;
 		}
