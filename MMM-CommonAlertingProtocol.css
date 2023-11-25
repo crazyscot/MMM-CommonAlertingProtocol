@@ -25,13 +25,13 @@
 }
 
 .cap-severity-Minor {
-    color: yellow !important;
+    color: #ffeb18 !important;
 }
 
 .cap-severity-Moderate {
-    color: orange !important;
+    color: #ff8918 !important;
 }
 
 .cap-severity-Extreme {
-    color: red !important;
+    color: #ff181e !important;
 }
