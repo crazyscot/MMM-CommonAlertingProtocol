@@ -27,13 +27,14 @@
     {% endif %}
 {% endmacro %}
 {% if loaded %}
+    {% if config.showAsList %}
     <ul class="cap-list">
         {% for item in items %}
             <li>
                 {% if (item.config.showSourceTitle and item.sourceTitle) or item.config.showPublishDate %}
                 <span class="cap-source light small dimmed">
                     {% if item.sourceTitle and item.config.showSourceTitle %}
-                        {{ item.sourceTitle }}{% if item.config.showPublishDate %}, {% else %}:{% endif %}
+                        {{ escapeText(item.sourceTitle, item.config.dangerouslyDisableAutoEscaping) }}{% if item.config.showPublishDate %}, {% else %}:{% endif %}
                     {% endif %}
                     {% if item.config.showPublishDate %}{{ item.publishDate }}:{% endif %}
                 </span>
@@ -43,7 +44,7 @@
                         <span class="wi weathericon wi-{{ item.iconClass }} cap-severity-{{ item.severity }}"></span>
                         {% endif %}
                         {% if item.config.showAlertTitle %}
-                        {{ escapeTitle(item.title, item.url, item.config.dangerouslyDisableAutoEscaping, item.config.showTitleAsUrl) }}
+                        {{ escapeTitle(item.title, item.url, item.config.dangerouslyDisableAutoEscaping, false) }}
                         {% endif %}
                 </span>
                 {% if item.config.showOnset %}<span class="cap-onset">{{ item.onset }}</span>{% endif %}
@@ -60,6 +61,37 @@
             </li>
         {% endfor %}
     </ul>
+    {% else %}
+        <div>
+            {% if (item.config.showSourceTitle and item.sourceTitle) or item.config.showPublishDate %}
+                <div class="cap-source light small dimmed">
+                    {% if item.sourceTitle and item.config.showSourceTitle %}
+                        {{ escapeText(item.sourceTitle, item.config.dangerouslyDisableAutoEscaping) }}{% if item.config.showPublishDate %}, {% else %}:{% endif %}
+                    {% endif %}
+                    {% if item.config.showPublishDate %}{{ item.publishDate }}:{% endif %}
+                </div>
+            {% endif %}
+            <span class="cap-severity-{{ item.severity }} cap-title bright medium light{{ ' no-wrap' if not item.config.wrapTitle }}">
+                    {% if item.config.showIcon %}
+                    <span class="wi weathericon wi-{{ item.iconClass }} cap-severity-{{ item.severity }}"></span>
+                    {% endif %}
+                    {% if item.config.showAlertTitle %}
+                    {{ escapeTitle(item.title, item.url, item.config.dangerouslyDisableAutoEscaping, false) }}
+                    {% endif %}
+            </span>
+            {% if item.config.showOnset %}<span class="cap-onset">{{ item.onset }}</span>{% endif %}
+            {% if item.config.showAreaDescription %}<span class="cap-areas light"> {{item.areas}}</span>{% endif %}
+            {% if item.config.showDescription %}
+                <div class="cap-desc small light{{ ' no-wrap' if not item.config.wrapDescription }}">
+                    {% if item.config.truncDescription %}
+                        {{ escapeText(item.description | truncate(item.config.lengthDescription) , item.config.dangerouslyDisableAutoEscaping) }}
+                    {% else %}
+                        {{ escapeText(item.description, item.config.dangerouslyDisableAutoEscaping) }}
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
 {% else %}
     <div class="small dimmed">{{ "LOADING" | translate | safe }}</div>
 {% endif %}

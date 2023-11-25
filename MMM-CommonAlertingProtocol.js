@@ -16,7 +16,7 @@ Module.register("MMM-CommonAlertingProtocol", {
 		MetService recommends the CAP Feed is polled at least every five minutes to ensure timely
 receipt of all Warnings and Watches, but not polled more frequently than every two minutes.
 		*/
-		updateInterval: 300000,
+		updateInterval: 5000,
 		retryDelay: 5000,
 		feeds: [
 			{
@@ -32,6 +32,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		removeStartTags: "",
 		removeEndTags: "",
 		broadcastAlertUpdates: true,
+		showAsList: true,
 		commonConfig: {
 			showSourceTitle: true,
 			showPublishDate: true,
@@ -54,8 +55,8 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 	start: function() {
 		Log.info(`Starting module: ${this.name}`);
 
-		var self = this;
 		this.alertItems = [];
+		this.activeItem = 0;
 
 		this.loaded = false;
 		this.error = null;
@@ -91,8 +92,12 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 	},
 
 	getTemplateData: function () {
+		if (this.activeItem >= this.alertItems.length)
+			this.activeItem = 0;
+
 		return {
 			config: this.config,
+			item: this.alertItems[this.activeItem],
 			items: this.alertItems,
 			loaded: this.loaded,
 		};
@@ -116,6 +121,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
                     this.show();
                 }
 				this.updateDom(this.config.animationSpeed);
+				this.scheduleUpdateInterval();
             }
 
             this.loaded = true;
@@ -125,6 +131,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		} else if (notification === "FEED_ERROR") {
 			this.error = this.translate(payload.error_type);
 			this.updateDom(this.config.animationSpeed);
+			this.scheduleUpdateInterval();
 		}
 	},
 
@@ -294,6 +301,21 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 			}
 		}
 		return false;
+	},
+
+	/**
+     * Schedule visual update, when in single-item mode
+     */
+	scheduleUpdateInterval: function () {
+		this.updateDom(this.config.animationSpeed);
+
+		// Clear timer if it already exists
+		if (this.timer) clearInterval(this.timer);
+
+		this.timer = setInterval(() => {
+			this.activeItem++;
+			this.updateDom(this.config.animationSpeed);
+		}, this.config.updateInterval);
 	},
 });
 
