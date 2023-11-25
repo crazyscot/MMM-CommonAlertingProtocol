@@ -314,10 +314,12 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		// Clear timer if it already exists
 		if (this.timer) clearInterval(this.timer);
 
-		if (!this.config.showAsList && this.alertItems.length>1) {
+		if (!this.config.showAsList) {
 			this.timer = setInterval(() => {
-				this.activeItem++;
-				this.updateDom(this.config.animationSpeed);
+				if (this.alertItems.length > 1) {
+					this.activeItem++;
+					this.updateDom(this.config.animationSpeed);
+				}
 			}, this.config.updateInterval);
 		}
 	},
