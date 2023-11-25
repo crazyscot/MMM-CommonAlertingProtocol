@@ -39,6 +39,10 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 			showIcon: true,
 			showAlertTitle: true,
 			showOnset: true,
+			showDescription: true,
+			lengthDescription: 100,
+			truncDescription: true,
+			wrapDescription: true,
 		},
 		cacheFeed: false, // Intended for development only
 		lat: null, // Geo-filter location

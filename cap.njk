@@ -48,6 +48,15 @@
                 </span>
                 {% if item.config.showOnset %}<span class="cap-onset">{{ item.onset }}</span>{% endif %}
                 {% if item.config.showAreaDescription %}<span class="cap-areas light"> {{item.areas}}</span>{% endif %}
+                {% if item.config.showDescription %}
+                    <div class="cap-desc small light{{ ' no-wrap' if not item.config.wrapDescription }}">
+                        {% if item.config.truncDescription %}
+                            {{ escapeText(item.description | truncate(item.config.lengthDescription) , item.config.dangerouslyDisableAutoEscaping) }}
+                        {% else %}
+                            {{ escapeText(item.description, item.config.dangerouslyDisableAutoEscaping) }}
+                        {% endif %}
+                    </div>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
