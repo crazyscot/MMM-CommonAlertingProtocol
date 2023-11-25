@@ -46,6 +46,10 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 			lengthDescription: 100,
 			truncDescription: true,
 			wrapDescription: true,
+			/* If you want to display the list horizontally (say, showing the icons only) this can be done with custom CSS:
+			  .cap-list li { display: inline-block; }
+			*/
+
 		},
 		cacheFeed: false, // Intended for development only
 		lat: null, // Geo-filter location
