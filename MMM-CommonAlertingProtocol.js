@@ -33,6 +33,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		removeEndTags: "",
 		broadcastAlertUpdates: true,
 		showAsList: true,
+		animationSpeed: 2500,
 		commonConfig: {
 			showSourceTitle: true,
 			showPublishDate: true,
