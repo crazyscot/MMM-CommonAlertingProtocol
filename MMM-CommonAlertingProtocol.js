@@ -16,8 +16,7 @@ Module.register("MMM-CommonAlertingProtocol", {
 		MetService recommends the CAP Feed is polled at least every five minutes to ensure timely
 receipt of all Warnings and Watches, but not polled more frequently than every two minutes.
 		*/
-		updateInterval: 5000,
-		retryDelay: 5000,
+		reloadInterval: 5 * 60 * 1000,
 		feeds: [
 			{
 				title: "MetService",
@@ -34,6 +33,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		broadcastAlertUpdates: true,
 		showAsList: true,
 		animationSpeed: 2500,
+		updateInterval: 5000, // How often to update the display when showAsList is false
 		commonConfig: {
 			showSourceTitle: true,
 			showPublishDate: true,
