@@ -93,5 +93,7 @@
         </div>
     {% endif %}
 {% else %}
-    <div class="small dimmed">{{ "LOADING" | translate | safe }}</div>
+    {% if (not config.hideLoading) %}
+        <div class="small dimmed">{{ "LOADING" | translate | safe }}</div>
+    {% endif %}
 {% endif %}
