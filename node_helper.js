@@ -15,7 +15,7 @@ module.exports = NodeHelper.create({
 	start: function () {
 		Log.log(`Starting node helper for: ${this.name}`);
 		this.fetchers = [];
-		this.fetch = fetch;
+		this.fetchFunction = fetch;
 		this.fetchCache = null;
 		this.alertDetail = {}; // key: url; value: parsed CAP object
 		this.location = null; // will be {lat: Y, lon: X} if configured
@@ -37,7 +37,7 @@ module.exports = NodeHelper.create({
 				ttl: 86400000, // ms
 			};
 			this.fetchCache = builder.withCache(new fscache(options));
-			this.fetch = this.fetchCache;
+			this.fetchFunction = this.fetchCache;
 		}
 	},
 
@@ -108,7 +108,7 @@ module.exports = NodeHelper.create({
 					Log.log(`Retrieving alert detail for ${alert.url}`);
 					alert.detail = [];
 					asyncs.push(
-						this.fetch(alert.url)
+						this.fetchFunction(alert.url)
 							.then(NodeHelper.checkFetchStatus)
 							.then((response) => response.text())
 							.then((text) => xml2js.parseStringPromise(text))
