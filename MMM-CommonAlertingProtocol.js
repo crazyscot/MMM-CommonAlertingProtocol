@@ -33,7 +33,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 		broadcastAlertUpdates: true,
 		showAsList: true,
 		animationSpeed: 2500,
-		updateInterval: 5000, // How often to update the display when showAsList is false
+		updateInterval: 10000, // How often to update the display when showAsList is false
 		hideLoading: false,
 		commonConfig: {
 			showSourceTitle: true,
