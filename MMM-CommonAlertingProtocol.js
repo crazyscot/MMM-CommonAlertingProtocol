@@ -248,7 +248,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 
 			// process data we want to directly report
 			item.publishDate = moment(new Date(item.pubdate)).fromNow();
-			item.severity = item.detail[0]?.severity; // Minor, Moderate, Severe
+			item.severity = item.detail[0]?.severity || "unknown"; // Minor, Moderate, Severe
 			item.iconClass = this.convertEventType(item.detail[0]?.event);
 			var areas = [];
 			item.detail.forEach((detail) => {
@@ -263,6 +263,9 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 				item.onset = moment(new Date(onset)).calendar();
 			}
 		});
+
+		// sort (b-a) so that highest severity appears first
+		newsItems.sort((a, b) => numericSeverity(b) - numericSeverity(a));
 
 		// get updated news items and broadcast them
 		const updatedItems = [];
@@ -329,3 +332,13 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 	},
 });
 
+function numericSeverity(event) {
+	let s = String(event?.severity || "unknown").toLowerCase();
+	switch (s) {
+		case "minor": return 1;
+		case "moderate": return 2;
+		case "severe": return 3;
+		default: return 0;
+	}
+
+}
