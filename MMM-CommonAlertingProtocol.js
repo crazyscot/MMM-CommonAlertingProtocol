@@ -143,7 +143,7 @@ receipt of all Warnings and Watches, but not polled more frequently than every t
 
 	/** Map MetService event types into WI icons */
 	convertEventType: function (event) {
-		let s = String(event);
+		let s = String(event).toLowerCase();
 		switch (s) {
 			case "wind":
 				return "strong-wind";
