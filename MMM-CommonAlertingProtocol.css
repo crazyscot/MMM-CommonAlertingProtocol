@@ -32,6 +32,10 @@
     color: #ff8918 !important;
 }
 
+.cap-severity-Severe {
+    color: #ff181e !important;
+}
+
 .cap-severity-Extreme {
     color: #ff181e !important;
 }
